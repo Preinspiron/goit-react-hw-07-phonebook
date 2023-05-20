@@ -10,6 +10,7 @@ const FormStyled = styled(Form)`
   align-items: start;
   margin-right: auto;
   width: 100%;
+  justify-content: space-around;
 
   input {
     width: 100%;
@@ -66,7 +67,7 @@ const Phonebook = ({ addContact }) => {
             </label>
           </div> */}
 
-          <div>
+          <div className="form-labels">
             <label className="form-label" htmlFor="name">
               Name*
               <Field

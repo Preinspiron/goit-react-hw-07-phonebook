@@ -7,7 +7,8 @@ import Phonebook, { Filter, Contacts } from '../Phonebook';
 // import { INIT } from '../Phonebook/index';
 import { selectContacts, selectFilter } from '../../redux/selectors.js';
 // import { addCon, delCon } from '../../redux/contactsSlice.js';
-import { getFilter } from '../../redux/filterSlice.js';
+// import { getFilter } from '../../redux/filterSlice.js';
+import { getFilter } from 'redux/contactsSlice.js';
 
 export const App = () => {
   const contactsRedux = useSelector(selectContacts);
@@ -33,7 +34,6 @@ export const App = () => {
   };
 
   const addContact1 = value => {
-    console.log(value);
     if (dublicateCheck(value.name)) return alert(`${value.name} exist`);
     dispatch(addContact(value));
   };
@@ -43,7 +43,6 @@ export const App = () => {
   };
 
   const handleFilter = query => {
-    console.log(query);
     return contactsRedux.filter(({ name }) =>
       name.toLowerCase().includes(query.toLowerCase())
     );

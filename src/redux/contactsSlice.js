@@ -17,6 +17,11 @@ export const contactsSlice = createSlice({
 
     filter: '',
   },
+  reducers: {
+    getFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: builder =>
     builder
       // .addCase(fetchContacts.pending, (state, action) => {
@@ -46,5 +51,5 @@ export const contactsSlice = createSlice({
       }),
 });
 
-// export const { addCon, delCon } = contactsSlice.actions;
+export const { getFilter } = contactsSlice.actions;
 // export const contactsReducer = contactsSlice.reducer;
