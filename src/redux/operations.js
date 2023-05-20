@@ -12,9 +12,9 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async name => {
     try {
-      const toastId = toast.loading('Loading...', { position: 'top-right' });
+      const toastId1 = toast.loading('Loading...', { position: 'top-right' });
       const { data } = await fetch.post('', { ...name });
-      toast.success('Done', { id: toastId, position: 'top-right' });
+      toast.success('Done', { id: toastId1 });
       return data;
     } catch (error) {
       console.log(error);
@@ -26,10 +26,10 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async id => {
     try {
-      const toastId = toast.loading('Loading...', { position: 'top-right' });
+      const toastId2 = toast.loading('Loading...', { position: 'top-right' });
       console.log(+id);
       await fetch.delete(`/${id}`);
-      toast.error('Done', { id: toastId });
+      toast.error('Done', { id: toastId2 });
       return id;
     } catch (error) {
       console.log(error);

@@ -9,6 +9,7 @@ import { selectContacts, selectFilter } from '../../redux/selectors.js';
 // import { addCon, delCon } from '../../redux/contactsSlice.js';
 // import { getFilter } from '../../redux/filterSlice.js';
 import { getFilter } from 'redux/contactsSlice.js';
+import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
   const contactsRedux = useSelector(selectContacts);
@@ -71,6 +72,7 @@ export const App = () => {
         handleDelete={handleDelete}
         handleFilter={handleFilter}
       />
+      <Toaster />
     </Container>
   );
 };
