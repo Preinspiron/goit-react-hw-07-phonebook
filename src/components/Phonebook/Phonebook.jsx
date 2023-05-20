@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 
 const FormStyled = styled(Form)`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: start;
   margin-right: auto;
-  gap: 30px;
   width: 100%;
 
   input {
@@ -22,17 +21,10 @@ const FormStyled = styled(Form)`
     justify-content: center;
     margin: 0 auto;
   }
-  .btn {
-    height: auto;
-    width: 100%;
-  }
+
   & .error {
     color: tomato;
     font-size: 34px;
-  }
-  label {
-    width: 100%;
-    height: 160px;
   }
 `;
 
@@ -41,13 +33,13 @@ const schema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(10, 'Too Long!')
     .required('Required'),
-  number: Yup.number('Invalid number').required('Required'),
+  phone: Yup.number('Invalid number').required('Required'),
 });
 
 const Phonebook = ({ addContact }) => {
-  const handleSubmit = ({ name, number }, { resetForm }) => {
-    addContact({ name, number });
-
+  const handleSubmit = ({ name, phone }, { resetForm }) => {
+    addContact({ name, phone });
+    console.log(999);
     resetForm();
   };
 
@@ -56,8 +48,8 @@ const Phonebook = ({ addContact }) => {
       <Formik
         initialValues={{
           name: '',
-          number: '',
-          data: 'true',
+          phone: '',
+          // data: 'true',
         }}
         onSubmit={handleSubmit}
         validationSchema={schema}
@@ -74,21 +66,28 @@ const Phonebook = ({ addContact }) => {
             </label>
           </div> */}
 
-          <label htmlFor="name">
-            Name*
-            <Field id="name" name="name" placeholder="James ..." />
-            <ErrorMessage component="span" name="name" className="error" />
-          </label>
-          <label htmlFor="number">
-            Number*
-            <Field
-              id="number"
-              type="text"
-              name="number"
-              placeholder="+38 (095) 888 88 88"
-            />
-            <ErrorMessage name="number" component="span" className="error" />
-          </label>
+          <div>
+            <label className="form-label" htmlFor="name">
+              Name*
+              <Field
+                id="name"
+                name="name"
+                // type="text"
+                placeholder="James ..."
+              />
+              <ErrorMessage component="span" name="name" className="error" />
+            </label>
+            <label className="form-label" htmlFor="phone">
+              Number*
+              <Field
+                id="phone"
+                type="text"
+                name="phone"
+                placeholder="+38 (095) 888 88 88"
+              />
+              <ErrorMessage name="number" component="span" className="error" />
+            </label>
+          </div>
           <button type="submit" className="btn">
             Add contact
           </button>

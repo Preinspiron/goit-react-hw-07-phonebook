@@ -9,11 +9,6 @@ export const FeedbackSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  .btn {
-    width: 100px;
-    height: auto;
-    font-size: 16px;
-  }
   .description {
     display: flex;
     flex-direction: column;

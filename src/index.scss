@@ -10,11 +10,6 @@ body {
   // color: red;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 ul {
   list-style: none;
 }
@@ -50,4 +45,12 @@ span {
   color: red;
   background-color: red;
   border-radius: 50%;
+}
+
+.form-label {
+  height: 100px;
+}
+.btn {
+  margin-top: 10px;
+  font-size: 16px;
 }

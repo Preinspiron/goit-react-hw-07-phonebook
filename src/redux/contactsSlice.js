@@ -1,38 +1,50 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from 'redux/operations';
 
-const INIT_STATE = {
-  contacts: [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
-};
+function isPendingAction(action) {
+  return action.type.endsWith('pending');
+}
+function isRejectedAction(action) {
+  return action.type.endsWith('rejected');
+}
 
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: { data: INIT_STATE.contacts },
-  reducers: {
-    addCon: {
-      reducer(state, action) {
-        state.data.push(action.payload);
-      },
-      prepare(name, number) {
-        return {
-          payload: {
-            name,
-            number,
-            id: nanoid(),
-          },
-        };
-      },
-    },
-    delCon(state, action) {
-      state.data = state.data.filter(item => item.id !== action.payload);
-      // state.data = result;
-    },
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+
+    filter: '',
   },
+  extraReducers: builder =>
+    builder
+      // .addCase(fetchContacts.pending, (state, action) => {
+      //   state.isLoading = true;
+      // })
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.items = action.payload;
+        state.isLoading = false;
+      })
+      // .addCase(addContact.pending, (state, action) => {
+      //   state.isLoading = true;
+      // })
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items.unshift(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(item => +item.id !== +action.payload);
+        console.log(state.items);
+        state.isLoading = false;
+      })
+      .addMatcher(isPendingAction, (state, action) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isRejectedAction, (state, action) => {
+        state.error = action.payload;
+      }),
 });
 
-export const { addCon, delCon } = contactsSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+// export const { addCon, delCon } = contactsSlice.actions;
+// export const contactsReducer = contactsSlice.reducer;
